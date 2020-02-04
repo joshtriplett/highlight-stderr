@@ -1,0 +1,15 @@
+[package]
+name = "highlight-stderr"
+version = "0.1.0"
+authors = ["Josh Triplett <josh@joshtriplett.org>"]
+description = "Run a command and highlight its stderr, preserving the order of stdout and stderr"
+keywords = ["log", "pipe", "stdout", "stderr"]
+categories = ["command-line-utilities"]
+repository = "https://github.com/joshtriplett/highlight-stderr"
+edition = "2018"
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+anyhow = "1.0.26"
+colorparse = "2.0.1"
+io-mux = "0.1"
