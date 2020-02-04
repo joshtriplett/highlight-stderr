@@ -13,3 +13,9 @@ contain a color specification in git's color specification format, such as
 
 `highlight-stderr` uses [`io-mux`](https://crates.io/crates/io-mux) to capture
 the stdout and stderr of the command.
+
+
+# Examples
+
+Run the following from project root:
+> cargo run cargo run --example ex1
