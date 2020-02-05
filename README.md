@@ -15,4 +15,4 @@ contain a color specification in git's color specification format, such as
 
 `highlight-stderr` uses [`io-mux`](https://crates.io/crates/io-mux) to capture
 the stdout and stderr of the command. Like `io-mux`, `highlight-stderr` only
-runs on Linux.
+runs on UNIX platforms.
