@@ -58,9 +58,9 @@ dependencies = [
 
 [[package]]
 name = "io-mux"
-version = "1.0.0"
+version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "335d573ceba2764890203af504815ca4e5ebf5e2f17e483d2f7490fad95edb49"
+checksum = "362c29195fd4bee77cd910e290af54e11d2305e8f7d4da1a9fb63875c015bf3c"
 dependencies = [
  "libc",
  "tempfile",

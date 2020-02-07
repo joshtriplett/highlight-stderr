@@ -14,5 +14,6 @@ contain a color specification in git's color specification format, such as
 `bold white red`.
 
 `highlight-stderr` uses [`io-mux`](https://crates.io/crates/io-mux) to capture
-the stdout and stderr of the command. Like `io-mux`, `highlight-stderr` only
-runs on UNIX platforms.
+the stdout and stderr of the command.
+
+`highlight-stderr` only runs on Linux.
