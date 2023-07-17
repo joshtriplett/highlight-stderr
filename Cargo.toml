@@ -10,6 +10,6 @@ edition = "2018"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
-anyhow = "1.0.26"
+anyhow = "1.0.72"
 colorparse = "2.0.1"
 io-mux = "2.1.0"
