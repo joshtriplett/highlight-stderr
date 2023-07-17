@@ -20,13 +20,15 @@ fn main() -> anyhow::Result<()> {
     } else {
         bail!("Usage: highlight-stderr command [args]");
     };
+    let (out_tag, out_sender) = mux.make_sender()?;
+    let (err_tag, err_sender) = mux.make_sender()?;
     let mut child = Command::new(&cmd)
         .args(args)
-        .stdout(mux.make_untagged_sender()?)
-        .stderr(mux.make_tagged_sender("e")?)
+        .stdout(out_sender)
+        .stderr(err_sender)
         .spawn()?;
 
-    let mut done_sender = mux.make_tagged_sender("d")?;
+    let (done_tag, mut done_sender) = mux.make_sender()?;
     std::thread::spawn(move || match child.wait() {
         Ok(status) => {
             let exit_code = if let Some(code) = status.code() {
@@ -48,14 +50,20 @@ fn main() -> anyhow::Result<()> {
 
     loop {
         let TaggedData { tag, data } = mux.read()?;
-        match (tag.as_deref(), data) {
-            (Some("d"), &[exit_code]) => std::process::exit(exit_code as i32),
-            (Some("d"), error) => {
-                std::io::stderr().write_all(error)?;
-                std::process::exit(1);
+        if tag == out_tag {
+            highlight_stdout.paint(data).write_to(out)?;
+        } else if tag == err_tag {
+            highlight_stderr.paint(data).write_to(out)?;
+        } else if tag == done_tag {
+            match data {
+                &[exit_code] => std::process::exit(exit_code as i32),
+                error => {
+                    std::io::stderr().write_all(error)?;
+                    std::process::exit(1);
+                }
             }
-            (None, _) => highlight_stdout.paint(data).write_to(out)?,
-            (_, _) => highlight_stderr.paint(data).write_to(out)?,
+        } else {
+            bail!("Unexpected tag {tag:?}");
         }
     }
 }
