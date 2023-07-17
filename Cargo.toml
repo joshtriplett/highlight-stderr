@@ -6,7 +6,7 @@ description = "Run a command and highlight its stderr, preserving the order of s
 keywords = ["log", "pipe", "stdout", "stderr"]
 categories = ["command-line-utilities"]
 repository = "https://github.com/joshtriplett/highlight-stderr"
-edition = "2018"
+edition = "2021"
 license = "MIT OR Apache-2.0"
 
 [dependencies]
