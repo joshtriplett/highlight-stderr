@@ -3,10 +3,19 @@
 version = 3
 
 [[package]]
-name = "ansi_term"
-version = "0.9.0"
+name = "anstyle"
+version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "23ac7c30002a5accbf7e8987d0632fa6de155b7c3d39d0067317a391e00a2ef6"
+checksum = "3a30da5c5f2d5e72842e00bcb57657162cdabef0931f40e2deb9b4140440cecd"
+
+[[package]]
+name = "anstyle-git"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6c49672748e330c651b3eafff80b14574a094192dd2864e4b1c8661358ce2df9"
+dependencies = [
+ "anstyle",
+]
 
 [[package]]
 name = "anyhow"
@@ -43,15 +52,6 @@ name = "cfg-if"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
-
-[[package]]
-name = "colorparse"
-version = "2.0.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "179f9a3462d05f4c15041d8ba8bd59534731fe6ddd89a65ca61ec67655f37379"
-dependencies = [
- "ansi_term",
-]
 
 [[package]]
 name = "errno"
@@ -99,8 +99,8 @@ checksum = "443144c8cdadd93ebf52ddb4056d257f5b52c04d3c804e657d19eb73fc33668b"
 name = "highlight-stderr"
 version = "0.2.1"
 dependencies = [
+ "anstyle-git",
  "anyhow",
- "colorparse",
  "io-mux",
 ]
 

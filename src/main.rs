@@ -43,17 +43,21 @@ fn main() -> anyhow::Result<()> {
         }
     });
 
-    let highlight_stdout = colorparse::parse(&env_or("HIGHLIGHT_STDOUT", ""))?;
-    let highlight_stderr = colorparse::parse(&env_or("HIGHLIGHT_STDERR", "bold red"))?;
+    let highlight_stdout = anstyle_git::parse(&env_or("HIGHLIGHT_STDOUT", ""))?;
+    let highlight_stderr = anstyle_git::parse(&env_or("HIGHLIGHT_STDERR", "bold red"))?;
     let out_raw = std::io::stdout();
     let out = &mut out_raw.lock();
 
     loop {
         let TaggedData { tag, data } = mux.read()?;
         if tag == out_tag {
-            highlight_stdout.paint(data).write_to(out)?;
+            highlight_stdout.write_to(out)?;
+            out.write_all(data)?;
+            highlight_stdout.write_reset_to(out)?;
         } else if tag == err_tag {
-            highlight_stderr.paint(data).write_to(out)?;
+            highlight_stderr.write_to(out)?;
+            out.write_all(data)?;
+            highlight_stderr.write_reset_to(out)?;
         } else if tag == done_tag {
             match data {
                 &[exit_code] => std::process::exit(exit_code as i32),
